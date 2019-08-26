@@ -16,11 +16,17 @@
         let længde = 3;
         let bredde = 5;
         let areal = længde * bredde;
-        let fiona = 3;
-        let nitiya = 5;
-        let text = fiona * nitiya;
 
         console.log(areal);
-        console.log(text);
+
+        function areal() {
+            if (areal < 100) {
+                console.log("Arealet er for lille");
+            } else if (areal > 200) {
+                console.log("Arealet er ok");
+            } else if (areal >= 200) {
+                console.log("Arealet er for stort");
+            }
+        }
     </script>
 </body></html>
