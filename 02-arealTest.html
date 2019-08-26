@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,20 +14,25 @@
 
 
     <script>
-        let længde = 3;
-        let bredde = 5;
-        let areal = længde * bredde;
+        let længde = 8;
+        let bredde = 15;
+        let areal;
+
+        areal = længde * bredde;
 
         console.log(areal);
 
-        function areal() {
-            if (areal < 100) {
-                console.log("Arealet er for lille");
-            } else if (areal > 200) {
-                console.log("Arealet er ok");
-            } else if (areal >= 200) {
-                console.log("Arealet er for stort");
-            }
+
+        if (areal < 100) {
+            console.log("Arealet er for lille");
+
+        } else if (areal < 200) {
+
+            console.log("Arealet er ok");
+
+        } else {
+
+            console.log("Arealet er for stort");
         }
     </script>
 </body></html>
