@@ -11,8 +11,17 @@
 <body>
 
     <h1>Hvad hedder du?</h1>
-    <input type="letter">
+    Indtast dit navn: <input type="text" id="navn">
+    <button>Click</button>
+
+    <script>
+        document.querySelector("button").addEventListener("click", clickButton);
+
+        function clickButton() {
+            let brugernavn = document.querySelector("#navn").value;
+            console.log(`Goddag ${brugernavn}!`);
 
 
-    <script></script>
+        }
+    </script>
 </body></html>
