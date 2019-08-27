@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    </style>
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <div id="content">
+        <div>
+            <a href="https://kea.dk/">KEAs hjemmeside</a>
+        </div>
+        <div>
+            <a href="https://github.com/fionawray?tab=repositories">Min Github side</a>
+        </div>
+        <div>
+            <img src="http://mabe-kea.dk/E19/pics/frog.png" alt="">
+        </div>
+    </div>
+
+    <script>
+        const content = document.querySelector("#content");
+        const første = document.querySelector("#content div a");
+        const anden = document.querySelector('#content div:nth-child(2)');
+        const sidste = document.querySelector("#content img");
+
+        content.innerHTML += "<h1>Link til KEAs hjemmeside</h1>";
+        console.log(content);
+        console.log(første);
+        console.log(anden);
+        console.log(sidste);
+
+    </script>
+</body>
+
+</html>
