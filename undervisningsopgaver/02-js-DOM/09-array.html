@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>js-oevelse-1</title>
+    <style>
+        body {
+            color: burlywood;
+        }
+
+        #display {
+            width: 20vw;
+            height: 23vw;
+            border: 1px solid silver;
+            margin: 7vw;
+            padding: 1vw;
+        }
+
+        /*********************/
+    </style>
+
+</head>
+
+<body>
+    <div id="display"></div>
+
+    <script>
+        let playlist = ["Dance Monkey", "Señorita", "Beautiful people", "Back to you", "If i killed your night", "Something about you", "Follow my heart", "Clean love", "Narcotic", "Woke up late"];
+        playlist.forEach(sang => {
+            document.querySelector("#display").innerHTML += `${sang} <br>`;
+        })
+    </script>
+</body></html>
