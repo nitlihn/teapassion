@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <article>
+        <h1> </h1>
+        <p></p>
+    </article>
+
+    <script>
+        const dyr = {
+            "dyr": "gris",
+            "type": "pattedyr",
+            "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+            "levested": "svinefarm"
+        }
+
+        const navnContainer = document.querySelector("p");
+        navnContainer.textContent = `Dyr: ${dyr.dyr} Type: ${dyr.type} Levested: ${dyr.levested}`;
+
+        // Dette er også en måde at gøre det på, men hvis der skal flere ting ind, så er det nemmest at gøre det på den anden måde som er i bunden//
+
+        /* document.querySelector("article").innerHTML += "<img src='http://mabe-kea.dk/E19/pics/pig.png'/>";*/
+
+        let img = document.createElement("img");
+        img.src = "http://mabe-kea.dk/E19/pics/pig.png";
+        document.querySelector("article").appendChild(img);
+    </script>
+</body></html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #firkant {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            background-color: green;
+            text-align: center;
+        }
+
+        #cirkel {
+            border-radius: 50%;
+            text-align: center;
+            background-color: red;
+            line-height: 100px;
+            width: 100px;
+            height: 100px;
+        }
+
+    </style>
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <div id="firkant"></div>
+    <div id="cirkel"></div>
+
+    <script>
+        const theFirkant = document.querySelector("#firkant");
+        const theCirkel = document.querySelector("#cirkel");
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log("start");
+            theFirkant.innerHTML += "<img src='http://mabe-kea.dk/E19/pics/frog.png'/>";
+            theCirkel.innerHTML += "<img src='http://mabe-kea.dk/E19/pics/pig.png'/>";
+
+            theFirkant.addEventListener("click", swap);
+            theCirkel.addEventListener("click", stopSwap);
+        }
+
+        function swap() {
+            console.log(swap);
+            let tempHTML = theFirkant.innerHTML;
+
+            theFirkant.innerHTML = theCirkel.innerHTML;
+            theCirkel.innerHTML = tempHTML;
+        }
+
+        function stopSwap() {
+            theFirkant.removeEventListener("click", swap);
+        }
+
+    </script>
+</body>
+
+</html>
