@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Abel&display=swap" rel="stylesheet">
+    <title>Babushka</title>
+    <style>
+        img {
+            margin-left: auto;
+            margin-right: auto;
+            width: 65%;
+
+        }
+
+        body {
+            font-family: 'Abel', sans-serif;
+            background-color: #ededed;
+            background-image: url(imgs/bu.jpeg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1vw;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+        }
+
+        /*  p {
+            text-align: center;
+            margin-left: 5vw;
+            margin-right: 5vw;
+            font-size: 1.2rem;
+        }*/
+
+        .modtager {
+            text-align: center;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(1, 1fr);
+            max-width: 1080px;
+            margin: 0 auto;
+
+        }
+
+        .indhold {
+            width: 50vw;
+            min-height: 30vh;
+            background: #fff;
+            margin: 4rem auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .luk {
+            font-size: 1.7rem;
+            cursor: pointer;
+            margin-left: 12vw;
+        }
+
+        .menukort {
+            text-align: center;
+        }
+
+        .pris {
+            font-size: 22px;
+            text-align: center;
+        }
+
+        article {
+            border: 1px solid #d8d1d1;
+        }
+
+        article:nth-child(even) {
+            background: #e0e0e0;
+        }
+
+        article:nth-child(odd) {
+            background: #c7c7c7;
+        }
+
+        nav {
+            text-align: right;
+            margin-top: 1vw;
+            margin-bottom: 3vw;
+            padding: left;
+        }
+
+        button {
+            border: none;
+            background: none;
+            color: white;
+        }
+
+        nav .filter:hover {
+            transition: 0.5s;
+            text-decoration: underline;
+            color: black;
+        }
+
+        .filter {
+            border-radius: 8px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        #kontakt {
+            display: grid;
+            margin-left: 12vw;
+        }
+
+        footer {
+            background-color: #e5e4e4;
+            margin-top: 2vw;
+            display: block;
+        }
+
+        .kontakt_titel {
+            font-size: 22px;
+            font-family: 'Arapey', serif;
+            text-transform: uppercase;
+        }
+
+        @media screen and (min-width: 600px) {
+            .modtager {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media screen and (min-width:960px) {
+                .modtager {
+                    grid-template-columns: repeat(3, 1fr);
+
+                }
+            }
+
+            @media screen and (min-width: 700px) {
+                #kontakt {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                @media screen and (min-width: 800px) {
+                    .kontakt_img {
+                        width: 2vw;
+                    }
+                }
+
+    </style>
+
+    <nav>
+        <button class="filter valgt" data-kategori="alle">Alle</button>
+        <button class="filter" data-kategori="forretter">Forretter</button>
+        <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+        <button class="filter" data-kategori="desserter">Desserter</button>
+        <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+
+    </nav>
+
+</head>
+
+<body>
+    <main id="single">
+        <button class="luk">Tilbage</button>
+        <section class="indhold">
+            <article class="menu">
+                <h2></h2>
+                <img class="billede" src="" alt="">
+                <p class="menukort"></p>
+                <p class="pris"></p>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let ret = urlParams.get("ret");
+
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
+
+            console.log("jsonData", jsonData);
+
+            retter = await jsonData.json();
+
+            console.log("retter", retter);
+            document.querySelector(".luk").addEventListener("click", () => {
+                history.back();
+            })
+            visSingle();
+        }
+
+
+        function visSingle() {
+            retter.feed.entry.forEach((retter) => {
+                if (retter.gsx$navn.$t == ret) {
+
+                    document.querySelector("h2").textContent = retter.gsx$navn.$t;
+                    document.querySelector(".menukort").textContent = retter.gsx$lang.$t;
+                    document.querySelector(".pris").textContent = `Pris: ${retter.gsx$pris.$t},-`;
+                    document.querySelector("img").src = `imgs/large/${retter.gsx$billede.$t}.jpg`;
+                }
+            })
+        }
+
+    </script>
+    <footer>
+        <div id="kontakt">
+            <div class="adresse">
+                <div class="kontakt_titel"><img class="kontakt_img" src="imgs/kontakt.svg" width="65" height="65" alt="map"> Kontakt:</div>
+                <p>Grønnegade 97<br>1234, København K
+            </div>
+            <div class="adresse">
+                <div class="kontakt_titel"><img class="kontakt_img" src="imgs/%C3%A5bningstider.svg" display="none" width="65" height="65" alt="clock"> Åbningstider:</div>
+                <p>Mandag - Fredag: 10.30 - 22.00<br>Lørdag: 12.00 - 23.00
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

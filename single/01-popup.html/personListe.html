@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personliste</title>
+    <style>
+        img {
+            width: 30%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .modtager {
+            text-align: center;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(1, 1fr);
+            max-width: 1080px;
+            margin: 0 auto;
+
+        }
+
+        article {
+            border: 1px solid #8e8e8e;
+            color: #ffffff;
+        }
+
+        article:nth-child(even) {
+            background: #b4b1b1;
+        }
+
+        article:nth-child(odd) {
+            background: #848181;
+        }
+
+        @media screen and (min-width:600px) {
+            .modtager {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media screen and (min-width:960px) {
+                .modtager {
+                    grid-template-columns: repeat(3, 1fr);
+
+                }
+            }
+
+            nav {
+                text-align: center;
+                margin-top: 5vw;
+                margin-bottom: 3vw;
+            }
+
+            nav .filter:hover {
+                transition: 0.5s;
+                opacity: 2;
+                background-color: antiquewhite;
+            }
+
+            .filter {
+                background-color: #b8bcbc;
+                border-radius: 12px;
+                font-size: 20px;
+                color: white;
+                cursor: pointer;
+            }
+
+            #popup {
+                position: fixed;
+                top: 0;
+                width: 100vw;
+                height: 100vw;
+                background: rgba(240, 90, 90, 0.7);
+                display: none;
+            }
+
+            .indhold {
+                width: 70vw;
+                min-height: 50vh;
+                background: #fff;
+                margin: 4rem auto;
+                padding: 10px;
+            }
+
+            .luk {
+                position: fixed;
+                right: 0;
+                font-size: 2rem;
+            }
+    </style>
+    <h1>Alle</h1>
+    <nav>
+        <button class="filter valgt" data-køn="alle">Alle</button>
+        <button class="filter" data-køn="m">Mænd</button>
+        <button class="filter" data-køn="k">Kvinder</button>
+        <button class="filter" data-køn="andet">Andet</button>
+
+    </nav>
+</head>
+
+<body>
+
+    <template>
+        <article>
+            <div id="popup">
+                <button class="luk">X</button>
+                <section class="indhold">
+                    <article class="enkeltPerson">
+                        <h2></h2>
+                        <img class="billede" src="" alt="">
+                        <p>Github: <a class="github" href=""></a></p>
+                    </article>
+                </section>
+            </div>
+            <h2></h2>
+            <p></p>
+            <img src="" alt="">
+        </article>
+    </template>
+    <section class="modtager"></section>
+
+    <script>
+        let personliste;
+        const modtagerKloner = document.querySelector(".modtager");
+        const theTemplatePointer = document.querySelector("#theTemplate");
+        let filter = "alle";
+
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json");
+
+            console.log("jsonData", jsonData);
+
+            personliste = await jsonData.json();
+
+            console.log("personliste", personliste);
+            addEventListenersToButtons();
+            start();
+        }
+
+        function start() {
+            const modtagerKloner = document.querySelector(".modtager");
+            const temp = document.querySelector("template");
+
+            modtagerKloner.innerHTML = "";
+            personliste.feed.entry.forEach((person) => {
+                if (filter == "alle" || filter == person.gsx$køn.$t) {
+                    const klon = temp.cloneNode(true).content;
+                    klon.querySelector("h2").textContent = person.gsx$navn.$t;
+                    klon.querySelector("img").src = person.gsx$billede.$t;
+                    klon.querySelector("p").textContent = person.gsx$github.$t;
+
+                    modtagerKloner.appendChild(klon);
+                }
+            })
+        }
+
+        function addEventListenersToButtons() {
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+        }
+
+        function filtrering() {
+            filter = this.dataset.køn;
+            document.querySelector("h1").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.classList.remove("valgt");
+            })
+            this.classList.add("valgt");
+            start();
+        }
+    </script>
+</body></html>
